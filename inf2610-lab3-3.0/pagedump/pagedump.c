@@ -25,6 +25,17 @@ void save_page(char *fname, void *ptr) {
      * 4 - fermer le fichier
      */
 
+    // A modifer
+
+    int pageSize = 4096;
+    long newPtr = (long)ptr;
+
+    int file = open(fname, O_WRONLY);
+    write(file, newPtr, pageSize);
+    close(file);
+
+    printf("fsdfsd");
+
     return;
 }
 
