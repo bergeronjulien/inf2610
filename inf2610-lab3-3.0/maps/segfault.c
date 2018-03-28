@@ -47,6 +47,10 @@ void memory_scan(void *data, int direction) {
      * utile au programme, alors il se peut que son comportement soit modifié.
      */
 
+    while() {
+        
+    }
+
     printf("No segfault!\n");
     return;
 }
