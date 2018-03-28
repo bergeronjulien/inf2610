@@ -1,0 +1,18 @@
+We have a problem:
+segfault at addr=0x6c9000 offset=0xc5ff0 (791.984375 kio)
+Done
+[juberi@l4714-10 randaddr (question-3)] $ ./randaddr ../maps/segfault d
+direction=-1
+
+We have a problem:
+segfault at addr=0x600fff offset=0xffffdfef (-8.016602 kio)
+Done
+[juberi@l4714-10 randaddr (question-3)] $ ./randaddr ../maps/segfault d
+direction=-1
+
+We have a problem:
+segfault at addr=0x600fff offset=0xffffdfef (-8.016602 kio)
+Done
+[juberi@l4714-10 randaddr (question-3)] $ ^C
+[juberi@l4714-10 randaddr (question-3)] $
+
