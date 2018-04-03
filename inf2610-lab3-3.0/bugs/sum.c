@@ -24,7 +24,8 @@ void signal_segv_handler(int sig) {
 
 // sum_b: Calcul de la somme 1 + 2 + ... + x
 unsigned long long *sum_b(unsigned long long x) {
-    int *s = malloc(sizeof(unsigned long long));
+    unsigned long long *s = malloc(sizeof(unsigned long long)); // Correction pour question #2 
+    // unsigned long long *s;
     count++;
     if (x>0)
         *s = *sum_b(x - 1) + x;
