@@ -32,13 +32,17 @@ void save_page(char *fname, void *ptr) {
     int pageSize = 4096;
     ssize_t bytes_written;
 
+    
+
+    int *startPage = (int) ptr & ~(pageSize);
+
     int file = open(fname, O_CREAT | O_WRONLY, 0666);
 
     if (file != -1){
         printf("file is created.\n");
     }
 
-    bytes_written = write(file, &ptr, pageSize);
+    bytes_written = write(file, startPage, pageSize);
     close(file);
 
     printf("%ld\n", bytes_written);

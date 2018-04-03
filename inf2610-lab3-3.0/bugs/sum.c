@@ -24,22 +24,28 @@ void signal_segv_handler(int sig) {
 
 // sum_b: Calcul de la somme 1 + 2 + ... + x
 unsigned long long *sum_b(unsigned long long x) {
-    unsigned long long *s = malloc(sizeof(unsigned long long)); // Correction pour question #2 
-    // unsigned long long *s;
-    count++;
-    if (x>0)
-        *s = *sum_b(x - 1) + x;
-    else
-        *s = 0;
-    return s;
+    unsigned long long *s = malloc(sizeof(unsigned long long));
+
+    if (x>0) {
+        for (unsigned long long i = x; i > 0; i--) {
+            count++;
+            *s = *s + i;
+        }
+        return s;
+    } else
+        return 0;
 }
 
 // sum_a: Calcul de la somme 1 + 2 + ... + x
 unsigned long long sum_a(unsigned long long x) {
-    count++;
-    if (x>0)
-        return sum_a(x - 1) + x;
-    else
+    unsigned long long valeurFinale = 0;
+    if (x>0) {
+        for (unsigned long long i = x; i > 0; i--) {
+            count++;
+            valeurFinale = valeurFinale + i;
+        }
+        return valeurFinale;
+    } else
         return 0;
 }
 
