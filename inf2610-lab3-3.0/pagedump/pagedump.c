@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <string.h>
 
 /*
  * Savegarder la page contenant ptr dans le fichier fname
@@ -28,13 +30,19 @@ void save_page(char *fname, void *ptr) {
     // A modifer
 
     int pageSize = 4096;
-    long newPtr = (long)ptr;
+    ssize_t bytes_written;
 
-    int file = open(fname, O_WRONLY);
-    write(file, newPtr, pageSize);
+    int file = open(fname, O_CREAT | O_WRONLY, 0666);
+
+    if (file != -1){
+        printf("file is created.\n");
+    }
+
+    bytes_written = write(file, &ptr, pageSize);
     close(file);
 
-    printf("fsdfsd");
+    printf("%ld\n", bytes_written);
+    printf("Page size: %ld \n", sysconf(_SC_PAGESIZE));
 
     return;
 }

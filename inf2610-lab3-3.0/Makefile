@@ -205,14 +205,14 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /usagers/juberi/Documents/inf2610-lab3-3.0/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/loic/poly/inf2610/inf2610-lab3-3.0/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = ar
-AUTOCONF = ${SHELL} /usagers/juberi/Documents/inf2610-lab3-3.0/missing autoconf
-AUTOHEADER = ${SHELL} /usagers/juberi/Documents/inf2610-lab3-3.0/missing autoheader
-AUTOMAKE = ${SHELL} /usagers/juberi/Documents/inf2610-lab3-3.0/missing automake-1.15
-AWK = gawk
+AUTOCONF = ${SHELL} /home/loic/poly/inf2610/inf2610-lab3-3.0/missing autoconf
+AUTOHEADER = ${SHELL} /home/loic/poly/inf2610/inf2610-lab3-3.0/missing autoheader
+AUTOMAKE = ${SHELL} /home/loic/poly/inf2610/inf2610-lab3-3.0/missing automake-1.15
+AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = 
@@ -231,10 +231,10 @@ DUMPBIN =
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
-EGREP = /usr/bin/grep -E
+EGREP = /bin/grep -E
 EXEEXT = 
-FGREP = /usr/bin/grep -F
-GREP = /usr/bin/grep
+FGREP = /bin/grep -F
+GREP = /bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -248,9 +248,9 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /usagers/juberi/Documents/inf2610-lab3-3.0/missing makeinfo
+MAKEINFO = ${SHELL} /home/loic/poly/inf2610/inf2610-lab3-3.0/missing makeinfo
 MANIFEST_TOOL = :
-MKDIR_P = /usr/bin/mkdir -p
+MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
 OBJDUMP = objdump
@@ -266,15 +266,15 @@ PACKAGE_URL =
 PACKAGE_VERSION = 3.0
 PATH_SEPARATOR = :
 RANLIB = ranlib
-SED = /usr/bin/sed
+SED = /bin/sed
 SET_MAKE = 
-SHELL = /bin/sh
+SHELL = /bin/bash
 STRIP = strip
 VERSION = 3.0
-abs_builddir = /usagers/juberi/Documents/inf2610-lab3-3.0
-abs_srcdir = /usagers/juberi/Documents/inf2610-lab3-3.0
-abs_top_builddir = /usagers/juberi/Documents/inf2610-lab3-3.0
-abs_top_srcdir = /usagers/juberi/Documents/inf2610-lab3-3.0
+abs_builddir = /home/loic/poly/inf2610/inf2610-lab3-3.0
+abs_srcdir = /home/loic/poly/inf2610/inf2610-lab3-3.0
+abs_top_builddir = /home/loic/poly/inf2610/inf2610-lab3-3.0
+abs_top_srcdir = /home/loic/poly/inf2610/inf2610-lab3-3.0
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -304,7 +304,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /usagers/juberi/Documents/inf2610-lab3-3.0/install-sh
+install_sh = ${SHELL} /home/loic/poly/inf2610/inf2610-lab3-3.0/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -316,6 +316,7 @@ pdfdir = ${docdir}
 prefix = /usr/local
 program_transform_name = s,x,x,
 psdir = ${docdir}
+runstatedir = ${localstatedir}/run
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 srcdir = .
@@ -559,7 +560,7 @@ distdir: $(DISTFILES)
 	  ! -type d ! -perm -444 -exec $(install_sh) -c -m a+r {} {} \; \
 	|| chmod -R a+r "$(distdir)"
 dist-gzip: distdir
-	tardir=$(distdir) && $(am__tar) | eval GZIP= gzip $(GZIP_ENV) -c >$(distdir).tar.gz
+	tardir=$(distdir) && $(am__tar) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).tar.gz
 	$(am__post_remove_distdir)
 
 dist-bzip2: distdir
@@ -585,7 +586,7 @@ dist-shar: distdir
 	@echo WARNING: "Support for shar distribution archives is" \
 	               "deprecated." >&2
 	@echo WARNING: "It will be removed altogether in Automake 2.0" >&2
-	shar $(distdir) | eval GZIP= gzip $(GZIP_ENV) -c >$(distdir).shar.gz
+	shar $(distdir) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).shar.gz
 	$(am__post_remove_distdir)
 
 dist-zip: distdir
@@ -603,7 +604,7 @@ dist dist-all:
 distcheck: dist
 	case '$(DIST_ARCHIVES)' in \
 	*.tar.gz*) \
-	  eval GZIP= gzip $(GZIP_ENV) -dc $(distdir).tar.gz | $(am__untar) ;;\
+	  GZIP=$(GZIP_ENV) gzip -dc $(distdir).tar.gz | $(am__untar) ;;\
 	*.tar.bz2*) \
 	  bzip2 -dc $(distdir).tar.bz2 | $(am__untar) ;;\
 	*.tar.lz*) \
@@ -613,7 +614,7 @@ distcheck: dist
 	*.tar.Z*) \
 	  uncompress -c $(distdir).tar.Z | $(am__untar) ;;\
 	*.shar.gz*) \
-	  eval GZIP= gzip $(GZIP_ENV) -dc $(distdir).shar.gz | unshar ;;\
+	  GZIP=$(GZIP_ENV) gzip -dc $(distdir).shar.gz | unshar ;;\
 	*.zip*) \
 	  unzip $(distdir).zip ;;\
 	esac
