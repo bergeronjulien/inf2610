@@ -29,12 +29,15 @@ void save_page(char *fname, void *ptr) {
 
     // A modifer
 
-    int pageSize = 4096;
+    unsigned long long pageSize = 4096;
     ssize_t bytes_written;
 
-    
-
-    int *startPage = (int) ptr & ~(pageSize);
+    // int *startPage = (int) ptr & ~(pageSize);
+    // int test = (int) ptr % pageSize;
+    // i
+    unsigned long long startPage = (unsigned long long) ptr ;
+    unsigned long long *test = startPage & ~(pageSize - 1);
+    // int *test = startPage;
 
     int file = open(fname, O_CREAT | O_WRONLY, 0666);
 
@@ -42,7 +45,7 @@ void save_page(char *fname, void *ptr) {
         printf("file is created.\n");
     }
 
-    bytes_written = write(file, startPage, pageSize);
+    bytes_written = write(file, test, pageSize);
     close(file);
 
     printf("%ld\n", bytes_written);
@@ -62,7 +65,7 @@ int main(int argc, char **argv) {
 
     /*
      * Variables sur la pile (stack)
-     */
+    //  */
     volatile int cafe1 = 0xCAFE1111; (void) cafe1;
     volatile int cafe2 = 0xCAFE2222; (void) cafe2;
     volatile int cafe3[2] = { 0xCAFE3333, 0xCAFE4444 }; (void) cafe3;
