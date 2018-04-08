@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <string.h>
 
 /*
  * Savegarder la page contenant ptr dans le fichier fname
@@ -27,14 +29,27 @@ void save_page(char *fname, void *ptr) {
 
     // A modifer
 
-    int pageSize = 4096;
-    long newPtr = (long)ptr;
+    unsigned long long pageSize = 4096;
+    ssize_t bytes_written;
 
-    int file = open(fname, O_WRONLY);
-    write(file, newPtr, pageSize);
+    // int *startPage = (int) ptr & ~(pageSize);
+    // int test = (int) ptr % pageSize;
+    // i
+    unsigned long long startPage = (unsigned long long) ptr ;
+    unsigned long long *test = startPage & ~(pageSize - 1);
+    // int *test = startPage;
+
+    int file = open(fname, O_CREAT | O_WRONLY, 0666);
+
+    if (file != -1){
+        printf("file is created.\n");
+    }
+
+    bytes_written = write(file, test, pageSize);
     close(file);
 
-    printf("fsdfsd");
+    printf("%ld\n", bytes_written);
+    printf("Page size: %ld \n", sysconf(_SC_PAGESIZE));
 
     return;
 }
@@ -50,7 +65,7 @@ int main(int argc, char **argv) {
 
     /*
      * Variables sur la pile (stack)
-     */
+    //  */
     volatile int cafe1 = 0xCAFE1111; (void) cafe1;
     volatile int cafe2 = 0xCAFE2222; (void) cafe2;
     volatile int cafe3[2] = { 0xCAFE3333, 0xCAFE4444 }; (void) cafe3;
